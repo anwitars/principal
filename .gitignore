@@ -1,0 +1,6 @@
+# project artifacts
+dist/
+node_modules/
+
+# personal scripts
+.anwitars-source.zsh
