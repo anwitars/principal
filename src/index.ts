@@ -1,6 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import { DISCORD_TOKEN } from "./environment";
 import { registerSlashCommands } from "./registerSlashCommands";
+import { PrincipalCommandName, getPrincipalCommand } from "./commands";
 
 const client = new Client({
     intents: [GatewayIntentBits.MessageContent]
@@ -14,9 +15,14 @@ client.once("ready", async (readyClient) => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
-    switch (interaction.commandName) {
+    const runCommand = async (commandName: PrincipalCommandName) => {
+        const command = getPrincipalCommand(commandName);
+        await command.execute(interaction);
+    }
+
+    switch (interaction.commandName as PrincipalCommandName) {
         case "ping":
-            await interaction.reply("Pong!");
+            await runCommand("ping");
             break;
     }
 });
