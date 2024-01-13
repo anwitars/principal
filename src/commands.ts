@@ -29,4 +29,11 @@ export const getSlashCommands = (): SlashCommandDescriptor[] =>
         description: command.description,
     }));
 
-export const getPrincipalCommand = (commandName: PrincipalCommandName): PrincipalCommandDescriptor => commands[commandName];
+export const getPrincipalCommand = (
+    commandName: PrincipalCommandName
+): PrincipalCommandDescriptor => commands[commandName];
+
+export const runPrincipalCommand = async (
+    commandName: PrincipalCommandName,
+    interaction: ChatInputCommandInteraction
+): Promise<void> => await getPrincipalCommand(commandName).execute(interaction);
