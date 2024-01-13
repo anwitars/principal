@@ -1,11 +1,10 @@
 import { ChatInputCommandInteraction } from "discord.js";
+import { resolvePing } from "./commands/ping";
 
 const commands = {
     "ping": {
         description: "Ping!" as const,
-        execute: async (interaction: ChatInputCommandInteraction) => {
-            await interaction.reply("Pong!");
-        }
+        execute: resolvePing,
     }
 }
 
