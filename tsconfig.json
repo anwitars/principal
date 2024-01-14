@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "skipLibCheck": true,
+    "strict": true,
   },
   "lib": ["esnext", "es2022", "es2017"]
 }
