@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, RESTPostAPIChatInputApplicationCommandsJSONBody as SlashCommandJSON, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, RESTPostAPIChatInputApplicationCommandsJSONBody as SlashCommandJSON, SlashCommandBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder } from "discord.js";
 import { commandDescriptorPing } from "./commands/ping";
 
 const commands = {
@@ -7,9 +7,14 @@ const commands = {
 
 export type PrincipalCommandName = keyof typeof commands;
 export type PrincipalCommandExecutor = (interaction: ChatInputCommandInteraction) => Promise<void>;
+export type PrincipalSubcommandBuilder = (subcommand: SlashCommandSubcommandBuilder) => SlashCommandSubcommandBuilder;
 
 export type PrincipalCommandDescriptor = {
-    readonly slashCommandBuilder: SlashCommandBuilder;
+    readonly slashCommandBuilder: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder;
+    readonly execute: PrincipalCommandExecutor;
+};
+export type PrincipalSubcommandCommandDescriptor = {
+    readonly subcommandBuilder: PrincipalSubcommandBuilder;
     readonly execute: PrincipalCommandExecutor;
 };
 
