@@ -15,11 +15,8 @@ client.once("ready", async (readyClient) => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
-    switch (interaction.commandName as PrincipalCommandName) {
-        case "ping":
-            await runPrincipalCommand("ping", interaction);
-            break;
-    }
+    const commandName = interaction.commandName as PrincipalCommandName;
+    await runPrincipalCommand(commandName, interaction);
 });
 
 client.login(DISCORD_TOKEN);
