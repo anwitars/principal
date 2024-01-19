@@ -8,5 +8,5 @@
     "skipLibCheck": true,
     "strict": true,
   },
-  "lib": ["esnext", "es2022", "es2017"]
+  "lib": ["esnext", "es2022", "es2017"],
 }

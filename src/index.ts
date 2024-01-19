@@ -4,19 +4,19 @@ import { registerSlashCommands } from "./registerSlashCommands";
 import { PrincipalCommandName, runPrincipalCommand } from "./commands";
 
 const client = new Client({
-    intents: [GatewayIntentBits.MessageContent]
+  intents: [GatewayIntentBits.MessageContent],
 });
 
 client.once("ready", async (readyClient) => {
-    console.log(`Principal is ready! Logged in as ${readyClient.user.tag}`);
-    await registerSlashCommands();
+  console.log(`Principal is ready! Logged in as ${readyClient.user.tag}`);
+  await registerSlashCommands();
 });
 
 client.on("interactionCreate", async (interaction) => {
-    if (!interaction.isChatInputCommand()) return;
+  if (!interaction.isChatInputCommand()) return;
 
-    const commandName = interaction.commandName as PrincipalCommandName;
-    await runPrincipalCommand(commandName, interaction);
+  const commandName = interaction.commandName as PrincipalCommandName;
+  await runPrincipalCommand(commandName, interaction);
 });
 
 client.login(DISCORD_TOKEN);
