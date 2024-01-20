@@ -3,6 +3,7 @@ import { DISCORD_TOKEN } from "./environment";
 import { registerSlashCommands } from "./registerSlashCommands";
 import { PrincipalCommandName, runPrincipalCommand } from "./commands";
 import logger from "./logger";
+import db from "./database/db";
 
 const client = new Client({
   intents: [GatewayIntentBits.MessageContent],
@@ -16,9 +17,28 @@ client.once("ready", async (readyClient) => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
-  logger.debug(`Received interaction for command ${interaction.commandName} from ${interaction.user.tag}`);
+  const serverId = interaction.guildId;
+  if (!serverId) {
+    await interaction.reply({
+      content: "Principal can only be used in a server!",
+      ephemeral: true,
+    });
+    return;
+  }
 
   const commandName = interaction.commandName as PrincipalCommandName;
+
+  if (commandName !== "settings") {
+    const isBotEnabled = (await db.getServerSetting("enabled", serverId)) ?? true;
+    if (!isBotEnabled) {
+      await interaction.reply({
+        content: "Principal is disabled on this server.",
+        ephemeral: true,
+      });
+      return;
+    }
+  }
+
   await runPrincipalCommand(commandName, interaction);
 });
 
