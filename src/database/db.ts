@@ -1,6 +1,11 @@
 import * as mongodb from "mongodb";
 import { PRINCIPAL_MONGO_URI } from "../environment";
 import logger from "../logger";
+import { ClassInputModel, ClassModel } from "./models";
+
+type Query = {
+  [key: string]: unknown;
+};
 
 export type ServerSettingValues = {
   enabled: boolean;
@@ -37,6 +42,21 @@ export class Database {
     }
 
     return result.value;
+  }
+
+  public async createClass(classInput: ClassInputModel, serverId: string): Promise<mongodb.BSON.ObjectId> {
+    const { className, datetime } = classInput;
+    const result = await this.db.collection("classes").insertOne({ className, datetime, serverId });
+    return result.insertedId;
+  }
+
+  public async getClasses(serverId: string, userId?: string | undefined): Promise<ClassModel[]> {
+    const query = { serverId } as Query;
+    if (userId) {
+      query.userId = userId;
+    }
+    const result = await this.db.collection("classes").find<ClassModel>(query).toArray();
+    return result;
   }
 }
 

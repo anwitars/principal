@@ -6,7 +6,9 @@ import {
   ButtonStyle,
   ChatInputCommandInteraction,
   InteractionEditReplyOptions,
+  PermissionFlagsBits,
 } from "discord.js";
+import logger from "../logger";
 
 export const replyWithNotEnoughPermissions = async (interaction: ChatInputCommandInteraction): Promise<void> => {
   await interaction.reply({
@@ -15,12 +17,14 @@ export const replyWithNotEnoughPermissions = async (interaction: ChatInputComman
   });
 };
 
-export const isUserServerOwner = (interaction: ChatInputCommandInteraction): boolean => {
-  const { guild, user } = interaction;
-  if (!guild) {
-    return false;
-  }
-  return guild.ownerId === user.id;
+export const isUserAdmin = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
+  const guild = await interaction.guild!.fetch();
+  const member = guild.members.cache.get(interaction.user.id) ?? (await guild.members.fetch(interaction.user.id));
+
+  const isAdmin = member.permissions.has(PermissionFlagsBits.Administrator);
+  logger.debug(`User ${interaction.user.tag} used admin command. Permission granted: ${isAdmin ? "yes" : "no"}`);
+
+  return isAdmin;
 };
 
 export type CreatePaginatedEmbedProps<T> = {
@@ -41,12 +45,12 @@ export const sendPaginatedMessage = async <T>({
   maxItemsPerPage = 10,
 }: CreatePaginatedEmbedProps<T>) => {
   const itemFields = items.map(mapper);
-  const pages = Math.ceil(itemFields.length / maxItemsPerPage);
-  const paginatedItems = Array.from({ length: pages }, (_, i) =>
-    itemFields.slice(i * maxItemsPerPage, (i + 1) * maxItemsPerPage),
-  );
+  const pages = Math.ceil(itemFields.length / maxItemsPerPage) || 1;
+  const paginatedItems =
+    Array.from({ length: pages }, (_, i) => itemFields.slice(i * maxItemsPerPage, (i + 1) * maxItemsPerPage)) ?? [];
 
-  const getFields = (page: number) => paginatedItems[page].concat([{ name: "Page", value: `${page + 1}/${pages}` }]);
+  const getFields = (page: number) =>
+    (paginatedItems[page] ?? []).concat([{ name: "Page", value: `${page + 1}/${pages}` }]);
 
   const previousPageButton = new ButtonBuilder()
     .setCustomId("previous-page")

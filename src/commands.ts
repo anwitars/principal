@@ -7,10 +7,12 @@ import {
   SlashCommandSubcommandGroupBuilder,
 } from "discord.js";
 import { commandDescriptorPing } from "./commands/ping";
+import { commandDescriptorClasses } from "./commands/classes/classes";
 import { commandDescriptorSettings } from "./commands/settings/settings";
 
 const commands = {
   ping: commandDescriptorPing,
+  classes: commandDescriptorClasses,
   settings: commandDescriptorSettings,
 };
 
