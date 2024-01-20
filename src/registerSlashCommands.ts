@@ -14,6 +14,6 @@ export const registerSlashCommands = async () => {
     });
     logger.info("Successfully reloaded application (/) commands.");
   } catch (error) {
-    logger.error("Failed to reload application (/) commands.");
+    logger.error("Failed to reload application (/) commands. Error:", error as Error);
   }
 };

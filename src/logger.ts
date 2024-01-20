@@ -63,8 +63,14 @@ export class Logger {
     this.log(LogLevel.Warning, message);
   }
 
-  error(message: string): void {
-    this.log(LogLevel.Error, message);
+  error(error: Error): void;
+  error(message: string, error?: Error): void;
+  error(message: string | Error, error?: Error): void {
+    if (message instanceof Error) {
+      error = message;
+      message = error.message;
+    }
+    this.log(LogLevel.Error, `${message}\n${error?.stack}`);
   }
 }
 
