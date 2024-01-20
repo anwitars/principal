@@ -26,6 +26,8 @@ client.on("interactionCreate", async (interaction) => {
     return;
   }
 
+  logger.debug(`Received interaction '${interaction.commandName}' from ${interaction.user.tag}`);
+
   const commandName = interaction.commandName as PrincipalCommandName;
 
   if (commandName !== "settings") {
