@@ -9,4 +9,6 @@
     "strict": true,
   },
   "lib": ["esnext", "es2022", "es2017"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
