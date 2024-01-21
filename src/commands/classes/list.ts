@@ -10,7 +10,10 @@ const subcommandBuilder: PrincipalSubcommandBuilder = (subcommand) =>
 const execute: PrincipalCommandExecutor = async (interaction) => {
   await interaction.deferReply({ ephemeral: true });
 
-  const classes = await db.getClasses(interaction.guildId!);
+  const classes = await db.getClasses(interaction.guildId!, {
+    userId: interaction.user.id,
+    filter: { datetime: { $gte: new Date() } },
+  });
 
   const mapper = (item: ClassModel): APIEmbedField => ({
     name: item.className,

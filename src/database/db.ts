@@ -13,6 +13,11 @@ export type ServerSettingValues = {
 
 export type ServerSetting = keyof ServerSettingValues;
 
+export type GetClassesOptions = {
+  userId?: string;
+  filter?: mongodb.Filter<ClassModel>;
+};
+
 export class Database {
   private db!: mongodb.Db;
 
@@ -50,11 +55,17 @@ export class Database {
     return result.insertedId;
   }
 
-  public async getClasses(serverId: string, userId?: string | undefined): Promise<ClassModel[]> {
-    const query = { serverId } as Query;
-    if (userId) {
-      query.userId = userId;
+  public async getClasses(serverId: string, options?: GetClassesOptions): Promise<ClassModel[]> {
+    const query: Query = { serverId };
+
+    if (options?.userId) {
+      query["userId"] = options.userId;
     }
+
+    if (options?.filter) {
+      Object.assign(query, options.filter);
+    }
+
     const result = await this.db.collection("classes").find<ClassModel>(query).toArray();
     return result;
   }
