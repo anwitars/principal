@@ -45,3 +45,9 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Upload built app
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: ./dist
