@@ -8,6 +8,6 @@ RUN apk add --no-cache \
 COPY package*.json ./
 RUN npm install --only=production
 
-COPY dist/ dist
+COPY dist dist
 
 CMD [ "node", "--es-module-specifier-resolution=node", "dist/index.js" ]
