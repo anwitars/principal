@@ -1,1 +1,12 @@
-export declare let global: NodeJS.Global & typeof globalThis & Record<string, never>;
+export declare let setupGlobal: NodeJS.Global &
+  typeof globalThis & {
+    mongodbInstance: import("mongodb-memory-server").MongoMemoryServer;
+    mongoClient: import("mongodb").MongoClient;
+    database: import("../src/database/db").Database;
+  };
+
+export declare let setupProcess: NodeJS.Process & {
+  env: {
+    PRINCIPAL_MONGO_URI: string;
+  };
+};

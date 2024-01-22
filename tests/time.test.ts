@@ -1,7 +1,7 @@
 import assert from "assert";
 import { PrincipalTime } from "../src/time";
 
-describe("test PrincipalTime", () => {
+describe("PrincipalTime", () => {
   it("test toString method on PrincipalTime", () => {
     const date = new Date("2021-01-01 00:00:00");
     const principalTime = new PrincipalTime(date);

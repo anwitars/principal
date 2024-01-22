@@ -1,19 +1,26 @@
+import type { setupProcess, setupGlobal } from "./global.d";
 import { register } from "ts-node";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import { MongoClient } from "mongodb";
+import { Database } from "../src/database/db";
+
+declare let global: typeof setupGlobal;
+declare let process: typeof setupProcess;
 
 register({
   project: "tests/tsconfig.json",
 });
 
-export class TestClass {
-  invokeCount: number;
+export async function mochaGlobalSetup(): Promise<void> {
+  const instance = await MongoMemoryServer.create();
+  const uri = instance.getUri();
 
-  constructor() {
-    this.invokeCount = 0;
-  }
+  global.mongodbInstance = instance;
+  process.env.PRINCIPAL_MONGO_URI = uri;
 
-  public invoke(): number {
-    return ++this.invokeCount;
-  }
+  const client = new MongoClient(uri);
+  await client.connect();
+
+  global.mongoClient = client;
+  global.database = new Database(client);
 }
-
-export async function mochaGlobalSetup(): Promise<void> {}
