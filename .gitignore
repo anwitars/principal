@@ -4,3 +4,5 @@ node_modules/
 
 # personal scripts
 .anwitars-source.zsh
+
+.yarn
