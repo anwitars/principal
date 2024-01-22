@@ -50,7 +50,7 @@ const execute: PrincipalCommandExecutor = async (interaction) => {
     return;
   }
 
-  await db.createClass({ className, datetime, studentId: student.id }, interaction.guildId!);
+  await db.createClass({ className, datetime, studentId: student.id, serverId: interaction.guildId! });
 
   const result = await student.send({
     embeds: [

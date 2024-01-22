@@ -49,9 +49,11 @@ export class Database {
     return result.value;
   }
 
-  public async createClass(classInput: ClassInputModel, serverId: string): Promise<mongodb.BSON.ObjectId> {
-    const { className, datetime } = classInput;
-    const result = await this.db.collection("classes").insertOne({ className, datetime, serverId });
+  public async createClass(classInput: ClassInputModel): Promise<mongodb.BSON.ObjectId> {
+    const { className, datetime, studentId, serverId } = classInput;
+    const result = await this.db
+      .collection<ClassInputModel>("classes")
+      .insertOne({ className, datetime, studentId, serverId });
     return result.insertedId;
   }
 
