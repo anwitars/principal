@@ -1,0 +1,21 @@
+{
+    "ts-node": {
+        "files": true
+    },
+    "compilerOptions": {
+      "lib": ["es2020"],
+      "module": "commonjs",
+      "target": "es2020",
+      "sourceMap": false,
+      "inlineSources": false,
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "noImplicitAny": false,
+    },
+    "include": [
+        "tests/**/*.ts"
+    ],
+    "files": [
+        "tests/global.d.ts"
+    ]
+}

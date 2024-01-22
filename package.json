@@ -7,18 +7,20 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc",
-    "start": "tsc && node --es-module-specifier-resolution=node dist/index.js",
+    "start": "node --es-module-specifier-resolution=node dist/index.js",
     "watch": "tsc-watch --onSuccess \"nodemon --es-module-specifier-resolution=node dist/index.js\"",
     "lint": "eslint . --ext .ts",
-    "test": "mocha"
+    "test": "mocha --require tests/setup.ts --require tests/teardown.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
+    "chai": "^5.0.0",
     "eslint": "^8.56.0",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.3",
