@@ -1,6 +1,4 @@
 import * as mongodb from "mongodb";
-import { PRINCIPAL_MONGO_URI } from "../environment";
-import logger from "../logger";
 import { ClassInputModel, ClassModel } from "./models";
 
 type Query = {
@@ -19,13 +17,10 @@ export type GetClassesOptions = {
 };
 
 export class Database {
-  private db!: mongodb.Db;
+  private db: mongodb.Db;
 
-  public async init() {
-    logger.info("Connecting to Mongo database...");
-    const client = await mongodb.MongoClient.connect(PRINCIPAL_MONGO_URI);
+  constructor(client: mongodb.MongoClient) {
     this.db = client.db();
-    logger.info("Connected to Mongo database!");
   }
 
   public async setServerSetting<T extends ServerSetting>(key: T, value: ServerSettingValues[T], serverId: string) {
@@ -72,8 +67,3 @@ export class Database {
     return result;
   }
 }
-
-const db = new Database();
-await db.init();
-
-export default db;

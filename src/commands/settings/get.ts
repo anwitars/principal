@@ -1,5 +1,6 @@
 import { PrincipalCommandExecutor, PrincipalSubcommandGroupBuilder } from "../../commands";
-import db, { ServerSetting } from "../../database/db";
+import { ServerSetting } from "../../database/db";
+import db from "../../database/instance";
 
 const subcommandGroupBuilder: PrincipalSubcommandGroupBuilder = (group) =>
   group

@@ -3,7 +3,7 @@ import {
   PrincipalSubcommandBuilder,
   PrincipalSubcommandCommandDescriptor,
 } from "../../commands";
-import db from "../../database/db";
+import db from "../../database/instance";
 import { isUserAdmin, replyWithNotEnoughPermissions } from "../utils";
 
 const subcommandBuilder: PrincipalSubcommandBuilder = (subcommand) =>

@@ -1,7 +1,7 @@
 import { APIEmbedField } from "discord.js";
 import { PrincipalCommandExecutor, PrincipalSubcommandBuilder } from "../../commands";
 import { sendPaginatedMessage } from "../utils";
-import db from "../../database/db";
+import db from "../../database/instance";
 import { ClassModel } from "../../database/models";
 
 const subcommandBuilder: PrincipalSubcommandBuilder = (subcommand) =>

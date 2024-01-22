@@ -3,7 +3,7 @@ import { DISCORD_TOKEN } from "./environment";
 import { registerSlashCommands } from "./registerSlashCommands";
 import { PrincipalCommandName, runPrincipalCommand } from "./commands";
 import logger from "./logger";
-import db from "./database/db";
+import db from "./database/instance";
 
 const client = new Client({
   intents: [GatewayIntentBits.MessageContent],

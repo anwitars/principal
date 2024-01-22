@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from "discord.js";
 import { PrincipalCommandExecutor, PrincipalSubcommandGroupBuilder } from "../../commands";
-import db, { ServerSetting, ServerSettingValues } from "../../database/db";
+import { ServerSetting, ServerSettingValues } from "../../database/db";
+import db from "../../database/instance";
 
 const enabledSubcommand = new SlashCommandSubcommandBuilder()
   .setName("enabled")
