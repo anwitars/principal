@@ -10,7 +10,7 @@
     "start": "node --es-module-specifier-resolution=node dist/index.js",
     "watch": "tsc-watch --onSuccess \"nodemon --es-module-specifier-resolution=node dist/index.js\"",
     "lint": "eslint . --ext .ts",
-    "test": "mocha --require tests/setup.ts --require tests/teardown.ts"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
