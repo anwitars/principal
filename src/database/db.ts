@@ -66,4 +66,9 @@ export class Database {
     const result = await this.db.collection("classes").find<ClassModel>(query).toArray();
     return result;
   }
+
+  public async deleteClass(filter: Partial<ClassModel>): Promise<boolean> {
+    const result = await this.db.collection("classes").deleteOne(filter);
+    return result.deletedCount === 1;
+  }
 }

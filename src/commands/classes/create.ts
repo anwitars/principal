@@ -4,6 +4,7 @@ import {
   PrincipalSubcommandCommandDescriptor,
 } from "../../commands";
 import db from "../../database/instance";
+import { INVALID_DATETIME_FORMAT } from "../constants";
 import { isUserAdmin, replyWithNotEnoughPermissions } from "../utils";
 
 const subcommandBuilder: PrincipalSubcommandBuilder = (subcommand) =>
@@ -41,7 +42,7 @@ const execute: PrincipalCommandExecutor = async (interaction) => {
   const datetime = new Date(datetimeOption);
 
   if (isNaN(datetime.getTime())) {
-    await interaction.editReply("Invalid date and time.");
+    await interaction.editReply(INVALID_DATETIME_FORMAT);
     return;
   }
 

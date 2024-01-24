@@ -7,6 +7,7 @@ import {
   ChatInputCommandInteraction,
   InteractionEditReplyOptions,
   PermissionFlagsBits,
+  SlashCommandStringOption,
 } from "discord.js";
 import logger from "../logger";
 
