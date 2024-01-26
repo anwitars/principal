@@ -1,7 +1,7 @@
 {
   "name": "principal",
   "version": "0.0.1",
-  "description": "",
+  "description": "A Discord bot with personal and educational purposes.",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
@@ -13,8 +13,8 @@
     "test": "mocha"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "anwitars",
+  "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
