@@ -1,7 +1,7 @@
 import { REST, Routes } from "discord.js";
 import { DISCORD_CLIENT_ID, DISCORD_TOKEN } from "./environment";
 import { getSlashCommands } from "./commands";
-import logger from "./logger";
+import logger from "./logger/instance";
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 

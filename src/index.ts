@@ -2,8 +2,8 @@ import { Client } from "discord.js";
 import { DISCORD_TOKEN } from "./environment";
 import { registerSlashCommands } from "./registerSlashCommands";
 import { PrincipalCommandName, runPrincipalCommand } from "./commands";
-import logger from "./logger";
 import db from "./database/instance";
+import logger from "./logger/instance";
 
 const client = new Client({
   intents: [],

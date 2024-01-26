@@ -7,9 +7,8 @@ import {
   ChatInputCommandInteraction,
   InteractionEditReplyOptions,
   PermissionFlagsBits,
-  SlashCommandStringOption,
 } from "discord.js";
-import logger from "../logger";
+import logger from "../logger/instance";
 
 export const replyWithNotEnoughPermissions = async (interaction: ChatInputCommandInteraction): Promise<void> => {
   await interaction.reply({

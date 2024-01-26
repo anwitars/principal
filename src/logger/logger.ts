@@ -1,6 +1,6 @@
-import { LOG_LEVEL } from "./environment";
-import { LogLevel } from "./types";
+import { LogLevel } from "../types";
 
+/// Some colors for the console output
 enum Color {
   Reset = "\x1b[0m",
   Red = "\x1b[31m",
@@ -13,11 +13,11 @@ enum Color {
   Gray = "\x1b[90m",
 }
 
-const withColor = (color: Color, message: string) => {
+const withColor = (color: Color, message: string): string => {
   return `${color}${message}${Color.Reset}`;
 };
 
-const associateColor = (level: LogLevel) => {
+const associateColor = (level: LogLevel): Color => {
   switch (level) {
     case LogLevel.Debug:
       return Color.Gray;
@@ -73,6 +73,3 @@ export class Logger {
     this.log(LogLevel.Error, `${message}\n${error?.stack}`);
   }
 }
-
-const logger = new Logger(LOG_LEVEL);
-export default logger;
