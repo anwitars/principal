@@ -9,6 +9,9 @@ function getEnv(key: string): string;
 function getEnv<T>(key: string, mapper: (envValue: string) => T, orDefault?: T | undefined): T;
 function getEnv(key: string, mapper: undefined, orDefault: string): string;
 
+/**
+ * Gets an environmental variable with the given key, optionally mapping it to a different type and
+ * returning a default value if it is not set. */
 function getEnv<T>(
   key: string,
   mapper?: ((envValue: string) => T) | undefined,

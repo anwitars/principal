@@ -4,10 +4,10 @@ interface MongoObject {
   _id: ObjectId;
 }
 
-export type ClassInputModel = {
+export type ClassModelInput = {
   className: string;
   datetime: Date;
   studentId: string;
   serverId: string;
 };
-export type ClassModel = ClassInputModel & MongoObject;
+export type ClassModel = ClassModelInput & MongoObject;

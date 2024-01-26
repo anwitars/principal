@@ -7,6 +7,7 @@ export type PrincipalTimeOffsetOptions = {
   seconds?: number;
 };
 
+/** Utility class for handling and manipulating time. */
 export class PrincipalTime {
   readonly date: Date;
 

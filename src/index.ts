@@ -5,18 +5,20 @@ import { PrincipalCommandName, runPrincipalCommand } from "./commands";
 import db from "./database/instance";
 import logger from "./logger/instance";
 
-const client = new Client({
+const discord_client = new Client({
   intents: [],
 });
 
-client.once("ready", async (readyClient) => {
+discord_client.once("ready", async (readyClient) => {
   logger.info(`Principal is ready! Logged in as ${readyClient.user.tag}`);
   await registerSlashCommands();
 });
 
-client.on("interactionCreate", async (interaction) => {
+discord_client.on("interactionCreate", async (interaction) => {
+  // We are only interested in slash commands
   if (!interaction.isChatInputCommand()) return;
 
+  // The bot can only be used on servers
   const serverId = interaction.guildId;
   if (!serverId) {
     await interaction.reply({
@@ -44,4 +46,4 @@ client.on("interactionCreate", async (interaction) => {
   await runPrincipalCommand(commandName, interaction);
 });
 
-client.login(DISCORD_TOKEN);
+discord_client.login(DISCORD_TOKEN);

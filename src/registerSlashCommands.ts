@@ -5,6 +5,7 @@ import logger from "./logger/instance";
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 
+/** Registers the slash commands to Discord. */
 export const registerSlashCommands = async () => {
   logger.info("Started refreshing application (/) commands.");
 
