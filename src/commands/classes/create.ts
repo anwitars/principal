@@ -4,6 +4,7 @@ import {
   PrincipalSubcommandCommandDescriptor,
 } from "../../commands";
 import db from "../../database/instance";
+import { PrincipalTime } from "../../time";
 import { INVALID_DATETIME_FORMAT } from "../constants";
 import { isUserAdmin, replyWithNotEnoughPermissions } from "../utils";
 
@@ -39,19 +40,19 @@ const execute: PrincipalCommandExecutor = async (interaction) => {
   const student = interaction.options.getUser("student", true);
   const className = interaction.options.getString("name", true);
   const datetimeOption = interaction.options.getString("datetime", true);
-  const datetime = new Date(datetimeOption);
+  const datetime = new PrincipalTime(new Date(datetimeOption));
 
-  if (isNaN(datetime.getTime())) {
+  if (isNaN(datetime.date.getTime())) {
     await interaction.editReply(INVALID_DATETIME_FORMAT);
     return;
   }
 
-  if (datetime < new Date()) {
+  if (datetime.date < new Date()) {
     await interaction.editReply("Date and time must be in the future.");
     return;
   }
 
-  await db.createClass({ className, datetime, studentId: student.id, serverId: interaction.guildId! });
+  await db.createClass({ className, datetime: datetime.date, studentId: student.id, serverId: interaction.guildId! });
 
   const result = await student.send({
     embeds: [
@@ -70,19 +71,19 @@ const execute: PrincipalCommandExecutor = async (interaction) => {
           },
           {
             name: "Date and time",
-            value: datetime.toLocaleString("hu-HU"),
+            value: datetime.toString(),
           },
         ],
       },
     ],
   });
 
-  if (!result) {
-    await interaction.editReply("Failed to send message to student.");
-    return;
-  }
+  const directMessageResult = result ? "" : "\nFailed to send message to student.";
+  const replyResult = `Class ${className} created for student ${student.toString()} at ${datetime.toString()}`.concat(
+    directMessageResult,
+  );
 
-  await interaction.editReply("Class created and message has been sent!");
+  await interaction.editReply(replyResult);
 };
 
 export const commandDescriptorClassesCreate: PrincipalSubcommandCommandDescriptor = {
