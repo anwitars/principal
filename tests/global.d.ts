@@ -8,5 +8,6 @@ export declare let setupGlobal: NodeJS.Global &
 export declare let setupProcess: NodeJS.Process & {
   env: {
     PRINCIPAL_MONGO_URI: string;
+    LOG_LEVEL: string;
   };
 };
