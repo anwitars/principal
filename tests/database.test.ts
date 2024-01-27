@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { setupGlobal } from "./global";
-import { ClassInputModel } from "../src/database/models";
+import { ClassModelInput } from "../src/database/models";
 import { PrincipalTime } from "../src/time";
 import { withoutObjectId } from "./utils";
 
@@ -28,14 +28,14 @@ describe("Database", async () => {
     it("create and get classes", async () => {
       const database = global.database;
 
-      const doNotDelete: ClassInputModel = {
+      const doNotDelete: ClassModelInput = {
         className: "test class",
         studentId: "test student",
         datetime: defaultTime.date,
         serverId: "test",
       };
 
-      const toDelete: ClassInputModel = {
+      const toDelete: ClassModelInput = {
         className: "to be deleted",
         studentId: "test student",
         datetime: toDeleteTime.date,
