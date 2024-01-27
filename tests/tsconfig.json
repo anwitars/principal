@@ -1,21 +1,21 @@
 {
-    "ts-node": {
-        "files": true
-    },
-    "compilerOptions": {
-      "lib": ["es2020"],
-      "module": "commonjs",
-      "target": "es2020",
-      "sourceMap": false,
-      "inlineSources": false,
-      "esModuleInterop": true,
-      "resolveJsonModule": true,
-      "noImplicitAny": false,
-    },
-    "include": [
-        "tests/**/*.ts"
-    ],
-    "files": [
-        "tests/global.d.ts"
-    ]
+  "ts-node": {
+    "files": true,
+  },
+  "compilerOptions": {
+    "module": "es2022",
+    "target": "es2017",
+    "sourceMap": false,
+    "inlineSources": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+  },
+  "lib": ["esnext", "es2022", "es2017"],
+  "include": ["tests/**/*.ts"],
+  "files": ["tests/global.d.ts"],
 }
