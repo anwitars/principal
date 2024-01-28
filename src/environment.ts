@@ -1,5 +1,6 @@
 import { LogLevel } from "./types";
 import { logLevelFromString } from "./utils";
+import * as fs from "fs";
 
 export const ENV_PREFIX = "PRINCIPAL" as const;
 
@@ -33,7 +34,17 @@ function getEnv<T>(
   throw new Error(`Environmental variable ${key} is not set`);
 }
 
+const loadVersion = (): string | undefined => {
+  try {
+    const packagejson = JSON.parse(fs.readFileSync("./package.json", "utf8"));
+    return `v${packagejson.version}`;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export const DISCORD_TOKEN = getEnv("DISCORD_TOKEN");
 export const DISCORD_CLIENT_ID = getEnv("DISCORD_CLIENT_ID");
 export const PRINCIPAL_MONGO_URI = getEnv("MONGO_URI");
 export const LOG_LEVEL = getEnv("LOG_LEVEL", logLevelFromString, LogLevel.Warning);
+export const APPLICATION_VERSION = loadVersion();

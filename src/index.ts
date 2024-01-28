@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-import { DISCORD_TOKEN } from "./environment";
+import { APPLICATION_VERSION, DISCORD_TOKEN } from "./environment";
 import { registerSlashCommands } from "./registerSlashCommands";
 import { PrincipalCommandName, runPrincipalCommand } from "./commands";
 import db from "./database/instance";
@@ -10,7 +10,9 @@ const discord_client = new Client({
 });
 
 discord_client.once("ready", async (readyClient) => {
-  logger.info(`Principal is ready! Logged in as ${readyClient.user.tag}`);
+  logger.info(
+    `Principal is ready! Logged in as ${readyClient.user.tag}. Running version ${APPLICATION_VERSION ?? "unknown"}`,
+  );
   await registerSlashCommands();
 });
 
