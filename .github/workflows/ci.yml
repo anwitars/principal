@@ -20,13 +20,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: npm
 
       - name: Install
-        run: npm i
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
 
       - name: Run tests
-        run: npm run test
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test
 
   build:
     runs-on: self-hosted
@@ -39,13 +42,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: npm
 
       - name: Install
-        run: npm i
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
 
       - name: Build
-        run: npm run build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
 
       - name: Upload built app
         uses: actions/upload-artifact@v4
