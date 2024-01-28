@@ -2,11 +2,8 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache \
-    npm
-
-COPY package*.json ./
-RUN npm install --only=production
+COPY package.json yarn.lock .yarnrc.yml ./
+RUN yarn install --pure-lockfile
 
 COPY dist dist
 
