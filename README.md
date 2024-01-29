@@ -1,6 +1,4 @@
-[![CI](https://github.com/anwitars/principal/actions/workflows/ci.yml/badge.svg)](https://github.com/anwitars/principal/actions/workflows/ci.yml)
-
-# Principal
+# Principal [![CI](https://github.com/anwitars/principal/actions/workflows/ci.yml/badge.svg)](https://github.com/anwitars/principal/actions/workflows/ci.yml)
 
 ## About the project
 
